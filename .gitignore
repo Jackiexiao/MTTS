@@ -1,0 +1,13 @@
+*.pyc
+data/*
+__pycache__
+src/generate.py
+forced_alignment/*
+utils/*
+.ipynb_checkpoints/
+tools/montreal-forced-aligner_linux.tar.gz
+tools/montreal-forced-aligner
+misc/thchs30.zip
+docs/_build/*
+thchs30_250_demo.tar.gz
+docs/.vscode
