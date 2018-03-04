@@ -12,14 +12,22 @@ branches:
     - dev
     - master
 
-notifications:
-  email:
-    recipients:
-      - 707610215@qq.com
-    on_success: always # default: change
-    on_failure: always # default: always
+notification:
+    email: false
+
+# notifications:
+#   email:
+#     recipients:
+#       - 707610215@qq.com
+#     on_success: always # default: change
+#     on_failure: always # default: always
 
 # sudo: enabled
+# addons:
+#   apt:
+#       packages:
+#       - libatlas3-base
+# dist:trusty
 
 before_install:
     - sudo apt-get install libatlas3-base

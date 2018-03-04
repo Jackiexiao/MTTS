@@ -120,7 +120,6 @@ def _textgrid2sfs(txtlines, wav_dir_path, output_path):
             with open(os.path.join(output_path, 'error.log'), 'a+') as fid:
                 fid.write('--Miss: %s \n' % textgrid_file)
 
-
 def _sfs2label(txtlines, wav_dir_path, output_path):
     sfs_path = os.path.join(output_path ,'sfs')
     label_path = os.path.join(output_path, 'labels')

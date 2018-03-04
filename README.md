@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/Jackiexiao/MTTS.svg?branch=dev)](https://travis-ci.org/Jackiexiao/MTTS)
+[![Coverage Status](https://coveralls.io/repos/github/Jackiexiao/MTTS/badge.svg?branch=master)](https://coveralls.io/github/Jackiexiao/MTTS?branch=master)
 # MTTS Mandarin/Chinese Text to Speech FrontEnd
 
 [中文README](https://github.com/Jackiexiao/MTTS/blob/master/README-zh.md)
@@ -68,10 +69,7 @@ A_02.wav
 see source code for more information 
 [mandarin_frontend.py](https://github.com/Jackiexiao/MTTS/blob/master/src/mandarin_frontend.py)
 
-### 3. Using egs/mandarin_voice script 
-Copy `MTTS/egs/mandarin_voice` to merlin's according directory, and see README [Mandarin_Voice](https://github.com/Jackiexiao/MTTS/blob/master/egs/mandarin_voice/s1/README.md)
-
-### 4. Forced-alignment
+### 3. Forced-alignment
 This project use [Montreal-Forced-Aligner](https://github.com/MontrealCorpusTools/Montreal-Forced-Aligner) to do forced alignment
 1. We trained the acoustic model using thchs30 dataset, see `misc/thchs30.zip`, the dictionary we use [mandarin_mtts.lexicon](https://github.com/Jackiexiao/MTTS/blob/master/misc/mandarin_mtts.lexicon)
 2. If you want to use mfa's (montreal-forced-aligner) pre-trained mandarin model, this is the dictionary you need [mandarin-for-montreal-forced-aligner-pre-trained-model.lexicon](https://github.com/Jackiexiao/MTTS/blob/master/misc/mandarin-for-montreal-forced-aligner-pre-trained-model.lexicon)
