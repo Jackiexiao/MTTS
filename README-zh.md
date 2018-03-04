@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/Jackiexiao/MTTS.svg?branch=dev)](https://travis-ci.org/Jackiexiao/MTTS)
 # MTTS Mandarin/Chinese Text to Speech FrontEnd
 
 [English README](https://github.com/Jackiexiao/MTTS/blob/master/README.md)  
