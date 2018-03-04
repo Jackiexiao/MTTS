@@ -38,3 +38,6 @@ install:
 
 script:
     - ./run_demo.sh
+
+after_success:
+    - coveralls
