@@ -23,7 +23,7 @@ the website above
 ## How To Reproduce
 1. First, you need data contain wav and txt (prosody mark is optional)
 2. Second, generate HTS label using this project 
-3. Using [merlin](https://github.com/CSTR-Edinburgh/merlin) to train. Specific method see [Mandarin_Voice](https://github.com/Jackiexiao/MTTS/tree/master/egs/mandarin_voice/s1)
+3. Using [merlin/egs/mandarin_voice](https://github.com/CSTR-Edinburgh/merlin/tree/master/egs/mandarin_voice) to train
 
 ## Context related annotation & Question Set
 * [Context related annotation上下文相关标注](https://github.com/Jackiexiao/MTTS/blob/master/misc/mandarin_label.md)
@@ -59,8 +59,8 @@ A_02 这是第二段文本
 ```
 **wav_directory example**(Sampleing Rate should larger than 16khz)
 ```
---A_01.wav  
---A_02.wav  
+A_01.wav  
+A_02.wav  
 ```
 
 ### 2. Generate Label by wav and alignment file

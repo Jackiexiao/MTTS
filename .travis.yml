@@ -1,0 +1,32 @@
+language: python
+
+python:
+    - "3.5"
+    - "3.6"
+
+git:
+    depth: 5
+
+branches:
+    only:
+    - dev
+    - master
+
+notifications:
+  email:
+    recipients:
+      - 707610215@qq.com
+    on_success: always # default: change
+    on_failure: always # default: always
+
+# sudo: enabled
+
+before_install:
+    - sudo apt-get install libatlas3-base
+    - ./tools/install_mtts.sh
+
+install:
+    - pip install -r requirements.txt
+
+script:
+    - ./run_demo.sh

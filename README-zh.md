@@ -22,7 +22,7 @@ synthesis using merlin toolkit
 
 1. 首先你需要语料库（包含音频文本，韵律标注可以不要）
 2. 然后通过这个项目生成HTS Label
-3. 使用 [merlin](https://github.com/CSTR-Edinburgh/merlin) 进行训练. 具体见 [Mandarin_Voice](https://github.com/Jackiexiao/MTTS/tree/master/egs/mandarin_voice/s1)
+3. 使用[merlin/egs/mandarin_voice](https://github.com/CSTR-Edinburgh/merlin/tree/master/egs/mandarin_voice) 进行训练
 
 ## 上下文相关标注与问题集
 * [Context related annotation上下文相关标注](https://github.com/Jackiexiao/MTTS/blob/master/misc/mandarin_label.md)
@@ -59,8 +59,8 @@ A_02 这是第二段文本
 ```
 **wav_directory example**采样率应大于16khz
 ```
---A_01.wav  
---A_02.wav  
+A_01.wav  
+A_02.wav  
 ```
 
 ### 2. 使用音频以及对齐好文本和音频的标注文件 生成 HTS Label
