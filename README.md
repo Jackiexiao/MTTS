@@ -87,6 +87,11 @@ smaller than prosodic word(which is adjusted in code)
 
 Improvement of prosody analyse will come soon
 
+## Improvement to be done in future
+* Polyphone Problem
+* Better Label format and Question Set
+* Better alignment
+
 ## Contributor
 * Jackiexiao
 * willian56

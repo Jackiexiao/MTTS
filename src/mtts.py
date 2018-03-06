@@ -86,7 +86,7 @@ def _mfa_align(txtlines, wav_dir_path, output_path):
     subprocess.run([mfa_align_path, output_path+'/wav', lexicon_path,
         acoustic_model_path, output_path+'/textgrid'])
 
-def _textgrid2sfs(txtlines, wav_dir_path, output_path):
+def _textgrid2sfs(txtlines, output_path):
     textgrid_path = os.path.join(output_path, 'textgrid/mandarin_voice')
     sfs_path = os.path.join(output_path , 'sfs')
     csv_path = os.path.join(output_path , 'csv')
@@ -120,7 +120,7 @@ def _textgrid2sfs(txtlines, wav_dir_path, output_path):
             with open(os.path.join(output_path, 'error.log'), 'a+') as fid:
                 fid.write('--Miss: %s \n' % textgrid_file)
 
-def _sfs2label(txtlines, wav_dir_path, output_path):
+def _sfs2label(txtlines, output_path):
     sfs_path = os.path.join(output_path ,'sfs')
     label_path = os.path.join(output_path, 'labels')
     os.system('mkdir -p %s/labels' % output_path)
@@ -156,8 +156,8 @@ def generate_label(txtlines, wav_dir_path, output_path):
     _pre_pinyin_setting()
     _add_lab(txtlines, wav_dir_path)
     _mfa_align(txtlines, wav_dir_path, output_path)
-    _textgrid2sfs(txtlines, wav_dir_path, output_path)
-    _sfs2label(txtlines, wav_dir_path, output_path)
+    _textgrid2sfs(txtlines, output_path)
+    _sfs2label(txtlines, output_path)
     _delete_tmp_file(output_path)
     print('Successful! The label files are in %s/labels' % output_path)
 
@@ -171,18 +171,11 @@ def main():
                         help="Full path to output directory, will be created if it doesn't exist")
     args = parser.parse_args()
 
-    #output_path = os.path.abspath(args.output_path)
-    #wav_dir_path = os.path.abspath(args.wav_dir_path)
-    #txtfile_path = os.path.abspath(args.txtfile)
-
-    output_path = args.output_path
-    wav_dir_path = args.wav_dir_path
-    txtfile_path = args.txtfile
-
-    txtlines = _txt_preprocess(txtfile_path, output_path)
+    txtlines = _txt_preprocess(args.txtfile, args.output_path)
 
     os.system('mkdir -p %s' % args.output_path)
-    generate_label(txtlines, wav_dir_path, output_path)
+
+    generate_label(txtlines, args.wav_dir_path, args.output_path)
 
 if __name__ == '__main__':
     main()
