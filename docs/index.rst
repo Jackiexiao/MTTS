@@ -11,7 +11,6 @@ Mandarin/Chinese Text to Speech based on statistical parametric speech synthesis
 .. toctree::
     :maxdepth: 2
 
-    tutorial
     recent_search
     merlin
     corpus
