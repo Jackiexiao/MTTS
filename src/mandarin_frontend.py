@@ -124,8 +124,8 @@ def txt2label(txt, sfsfile=None, style='default'):
     print (syllables)
     print (poses)
     print (phs_type)
-
     '''
+
     phone = tree(words, rhythms, syllables, poses, phs_type)
     return LabGenerator(phone, rhythms, times)
 

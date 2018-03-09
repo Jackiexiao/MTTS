@@ -73,14 +73,16 @@ def _standard_sfs(csv_list):
                    change2absd(csv_list[2], csv_list)))
     return standard_sfs_list
 
-def _mfa_align(txtlines, wav_dir_path, output_path):
+def _mfa_align(txtlines, wav_dir_path, output_path, acoustic_model_path):
     base_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
     os.system('mkdir -p %s/wav' % output_path)
     wav_dir_real_path = os.path.realpath(wav_dir_path)
     os.system('ln -s %s %s/wav/mandarin_voice' % (wav_dir_real_path, output_path))
+    #print('ln -s %s %s/wav/mandarin_voice' % (wav_dir_real_path, output_path))
     mfa_align_path = os.path.join(base_dir, 'tools/montreal-forced-aligner/bin/mfa_align')
     lexicon_path = os.path.join(base_dir, 'misc/mandarin_mtts.lexicon')
-    acoustic_model_path = os.path.join(base_dir, 'misc/thchs30.zip')
+    acoustic_model_path = os.path.join(base_dir, acoustic_model_path)
+
     #os.system('%s %s/wav %s %s %s/textgrid' %
     #        (mfa_align_path, output_path, lexicon_path, acoustic_model_path, output_path))
     subprocess.run([mfa_align_path, output_path+'/wav', lexicon_path,
@@ -152,10 +154,10 @@ def _delete_tmp_file(output_path):
     '''Delete tmp file like csv sfs'''
     pass
 
-def generate_label(txtlines, wav_dir_path, output_path):
+def generate_label(txtlines, wav_dir_path, output_path, acoustic_model_path):
     _pre_pinyin_setting()
     _add_lab(txtlines, wav_dir_path)
-    _mfa_align(txtlines, wav_dir_path, output_path)
+    _mfa_align(txtlines, wav_dir_path, output_path, acoustic_model_path)
     _textgrid2sfs(txtlines, output_path)
     _sfs2label(txtlines, output_path)
     _delete_tmp_file(output_path)
@@ -169,13 +171,17 @@ def main():
                         help="Full path to a wav directory contain wav (sampling frequency should larger than 16khz)")
     parser.add_argument("output_path",
                         help="Full path to output directory, will be created if it doesn't exist")
+    parser.add_argument('-a', '--acoustic_model_path', type=str, default='misc/thchs30.zip',
+                        help='Full path to acoustic model for forced aligner, default is misc/thchs30.zip')
     args = parser.parse_args()
 
     txtlines = _txt_preprocess(args.txtfile, args.output_path)
+    for line in txtlines:
+        print(line)
 
     os.system('mkdir -p %s' % args.output_path)
 
-    generate_label(txtlines, args.wav_dir_path, args.output_path)
+    generate_label(txtlines, args.wav_dir_path, args.output_path, args.acoustic_model_path)
 
 if __name__ == '__main__':
     main()

@@ -2,10 +2,6 @@
 <!--[![Coverage Status](https://coveralls.io/repos/github/Jackiexiao/MTTS/badge.svg?branch=master)](https://coveralls.io/github/Jackiexiao/MTTS?branch=master)-->
 # MTTS Mandarin/Chinese Text to Speech FrontEnd
 
-[中文README](https://github.com/Jackiexiao/MTTS/blob/master/README-zh.md)
-
-**ON_DEVELOPMENT**
-
 Mandarin/Chinese Text to Speech based on statistical parametric speech 
 synthesis using merlin toolkit
 
@@ -39,9 +35,10 @@ System: linux(tested on ubuntu16.04)
 pip install jieba pypinyin
 sudo apt-get install libatlas3-base
 ```
-Download file by yourself or run `bash tools/install_mtts.sh`  
-Download [montreal-forced-aligner](https://github.com/MontrealCorpusTools/Montreal-Forced-Aligner/releases/download/v1.0.0/montreal-forced-aligner_linux.tar.gz) and unzip to directory tools/  
-Download acoustic_model
+Run `bash tools/install_mtts.sh`  
+**Or** download file by yourself
+* Download [montreal-forced-aligner](https://github.com/MontrealCorpusTools/Montreal-Forced-Aligner/releases/download/v1.0.0/montreal-forced-aligner_linux.tar.gz) and unzip to directory tools/  
+* Download acoustic_model
 [thchs30.zip](https://github.com/Jackiexiao/MTTS/releases/download/v0.1/thchs30.zip) and copy to directory misc/  
 
 **Run Demo**
@@ -66,7 +63,10 @@ A_02.wav
 ```
 
 ### 2. Generate Label by wav and alignment file
-see source code for more information 
+see source code for more information, but pay attention to the sfs file, the
+format is `endtime phone_type` not `start_time, phone_type`(which is different
+from speech ocean's data)
+
 [mandarin_frontend.py](https://github.com/Jackiexiao/MTTS/blob/master/src/mandarin_frontend.py)
 
 ### 3. Forced-alignment
@@ -85,11 +85,11 @@ smaller than prosodic word(which is adjusted in code)
 * #3 stands for prosodic phrase
 * #4 stands for intonational phrase 
 
-Improvement of prosody analyse will come soon
 
 ## Improvement to be done in future
 * Polyphone Problem
 * Better Label format and Question Set
+* Improvement of prosody analyse
 * Better alignment
 
 ## Contributor
