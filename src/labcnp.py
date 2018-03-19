@@ -5,18 +5,6 @@ from enum import Enum
 from functools import reduce
 
 class LabNode(object):
-    def __init__(self):
-        self.lbrother=None
-        self.rbrother=None
-        self.father=None
-        self.sons=[]
-        self.sons_num=0
-        self.txt=''
-        self.rhythm=''
-        self.id=0
-        self.index=0
-        self.pos=''
-
     def __init__(self, lbrother=None, rbrother=None, father=None, sons=[], sons_num=0, txt='', rhythm='', index=0, pos=''):
         self.lbrother=lbrother
         self.rbrother=rbrother

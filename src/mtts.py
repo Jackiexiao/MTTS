@@ -77,8 +77,10 @@ def _mfa_align(txtlines, wav_dir_path, output_path, acoustic_model_path):
     base_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
     os.system('mkdir -p %s/wav' % output_path)
     wav_dir_real_path = os.path.realpath(wav_dir_path)
-    os.system('ln -s %s %s/wav/mandarin_voice' % (wav_dir_real_path, output_path))
-    #print('ln -s %s %s/wav/mandarin_voice' % (wav_dir_real_path, output_path))
+    symbolic_path = '%s/wav/mandarin_voice' % output_path
+    if not os.path.exists(symbolic_path):
+        os.system('ln -s %s %s' % (wav_dir_real_path, symbolic_path))
+        print('ln -s %s %s/wav/mandarin_voice' % (wav_dir_real_path, output_path))
     mfa_align_path = os.path.join(base_dir, 'tools/montreal-forced-aligner/bin/mfa_align')
     lexicon_path = os.path.join(base_dir, 'misc/mandarin_mtts.lexicon')
     acoustic_model_path = os.path.join(base_dir, acoustic_model_path)
@@ -161,7 +163,7 @@ def generate_label(txtlines, wav_dir_path, output_path, acoustic_model_path):
     _textgrid2sfs(txtlines, output_path)
     _sfs2label(txtlines, output_path)
     _delete_tmp_file(output_path)
-    print('Successful! The label files are in %s/labels' % output_path)
+    print('If success, the label files are in %s/labels' % output_path)
 
 def main():
     parser = argparse.ArgumentParser(description="convert mandarin_txt and wav to label for merlin.")
