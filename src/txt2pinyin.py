@@ -14,26 +14,30 @@ def _pre_pinyin_setting():
 
 
 def pinyinformat(syllabel):
-    '''format pinyin to system's format''' 
+    '''format pinyin to mtts's format''' 
     translate_dict = {'ju':'jv', 'qu':'qv', 'xu':'xv', 'zi':'zic',
                       'ci':'cic', 'si':'sic', 'zhi':'zhih', 
                       'chi':'chih', 'shi':'shih', 'ri':'rih',
                       'yuan':'yvan', 'yue':'yve', 'yun':'yvn',
+                      'quan':'qvan','xuan':'xvan','juan':'jvan',
+                      'qun':'qvn','xun':'xvn', 'jun':'jvn',
                       'iu':'iou', 'ui':'uei', 'un':'uen'}
+    # phone-set with y w, this is the default phone set
     translate_dict_more = {'ya':'yia', 'ye':'yie', 'yao':'yiao',
                            'you':'yiou', 'yan':'yian', 'yin':'yin',
                            'yang':'yiang', 'ying':'ying', 'yong':'yiong',
                            'wa':'wua', 'wo':'wuo', 'wai':'wuai',
                            'wei':'wuei', 'wan':'wuan', 'wen':'wuen',
                            'weng':'wueng', 'wang':'wuang'}
+    # phone-set without y w 
     translate_dict_less = {'ya':'ia', 'ye':'ie', 'yao':'iao',
                            'you':'iou', 'yan':'ian', 'yin':'in',
                            'yang':'iang', 'ying':'ing', 'yong':'iong',
+                           'yvan':'van', 'yve':'ve', 'yvn':'vn',
                            'wa':'ua', 'wo':'uo', 'wai':'uai',
                            'wei':'uei', 'wan':'uan', 'wen':'uen',
                            'weng':'ueng', 'wang':'uang'}
  
-    #必须先替代yun为yvn，然后再是替代un为uen
     for key, value in translate_dict.items():
         syllabel = syllabel.replace(key, value)
     for key, value in translate_dict_more.items():
@@ -41,7 +45,6 @@ def pinyinformat(syllabel):
     if not syllabel[-1].isdigit():
         syllabel = syllabel + '5'
     return syllabel
-
 
 def seprate_syllabel(syllabel):
     '''seprate syllable to consonant + ' ' + vowel '''
