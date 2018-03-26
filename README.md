@@ -1,9 +1,11 @@
 [![Build Status](https://travis-ci.org/Jackiexiao/MTTS.svg?branch=dev)](https://travis-ci.org/Jackiexiao/MTTS)
 <!--[![Coverage Status](https://coveralls.io/repos/github/Jackiexiao/MTTS/badge.svg?branch=master)](https://coveralls.io/github/Jackiexiao/MTTS?branch=master)-->
-# MTTS Mandarin/Chinese Text to Speech FrontEnd
+# MTTS Mandarin/Chinese Text to Speech FrontEnd(Demo)
 
 Mandarin/Chinese Text to Speech based on statistical parametric speech 
 synthesis using merlin toolkit
+
+This is only a demo of mandarin frontend which is lack of some parts like "text normalasition" and "prosody prediction", and the phone set && Question Set this project use havn't fully tested yet.
 
 ## Data
 Using 15 hours of wav for a mandarin speech synthesis dataset which is not
@@ -11,10 +13,7 @@ open-source, but you can use thchs30 dataset to run the demo (or record wav by
 yourself)
 
 ## Generated Samples
-Using Training Sets Label to generate wav https://jackiexiao.github.io/MTTS/
-
-I also use thchs30 dataset to train (only using 250 wavs for A11 speaker), see
-the website above
+Listen to  https://jackiexiao.github.io/MTTS/
 
 ## How To Reproduce
 1. First, you need data contain wav and txt (prosody mark is optional)
@@ -45,7 +44,7 @@ bash run_demo.sh
 ```
 ## Usage
 ### 1. Generate HTS Label by wav and text
-* Usage: Enter dir `MTTS/src` Run `python mtts.py txtfile wav_directory_path output_directory_path` (Absolute path or relative path) Then you will get HTS label
+* Usage: Run `python src/mtts.py txtfile wav_directory_path output_directory_path` (Absolute path or relative path) Then you will get HTS label, if you have your own acoustic model trained by monthreal-forced-aligner, add`-a your_acoustic_model.zip`, otherwise, this project use thchs30.zip acoustic model as default
 * Attention: Currently only support Chinese Character, txt should not have any
     Arabia number or English alphabet(不可包含阿拉伯数字和英文字符)
 
@@ -60,16 +59,27 @@ A_01.wav
 A_02.wav  
 ```
 
-### 2. Generate Label by wav and alignment file
-see source code for more information, but pay attention to the sfs file, the
-format is `endtime phone_type` not `start_time, phone_type`(which is different
-from speech ocean's data)
+### 2. Generate HTS Label by text with or without alignment file
+* Usage: Run `python src/mandarin_frontend.py txtfile output_directory_path` 
+* or import mandarin_frontend
+```
+from mandarin_frontend import txt2label
+
+result = txt2label('向香港特别行政区同胞澳门和台湾同胞海外侨胞')
+[print(line) for line in result]
+
+# with prosody mark and alignment file (sfs file)
+# result = txt2label('向#1香港#2特别#1行政区#1同胞#4澳门#2和#1台湾#1同胞#4海外#1侨胞',
+            sfsfile='example_file/example.sfs')
+```
+see [source
+code](https://github.com/Jackiexiao/MTTS/blob/master/src/mandarin_frontend.py) for more information, but pay attention to the alignment file(sfs file), the format is `endtime phone_type` not `start_time, phone_type`(which is different from speech ocean's data)
 
 [mandarin_frontend.py](https://github.com/Jackiexiao/MTTS/blob/master/src/mandarin_frontend.py)
 
 ### 3. Forced-alignment
 This project use [Montreal-Forced-Aligner](https://github.com/MontrealCorpusTools/Montreal-Forced-Aligner) to do forced alignment
-1. We trained the acoustic model using thchs30 dataset, see `misc/thchs30.zip`, the dictionary we use [mandarin_mtts.lexicon](https://github.com/Jackiexiao/MTTS/blob/master/misc/mandarin_mtts.lexicon)
+1. We trained the acoustic model using thchs30 dataset, see `misc/thchs30.zip`, the dictionary we use [mandarin_mtts.lexicon](https://github.com/Jackiexiao/MTTS/blob/master/misc/mandarin_mtts.lexicon). If you use larger dataset than thchs30, you may get better alignment.
 2. If you want to use mfa's (montreal-forced-aligner) pre-trained mandarin model, this is the dictionary you need [mandarin-for-montreal-forced-aligner-pre-trained-model.lexicon](https://github.com/Jackiexiao/MTTS/blob/master/misc/mandarin-for-montreal-forced-aligner-pre-trained-model.lexicon)
 
 ## Prosody Mark

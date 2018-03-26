@@ -3,6 +3,7 @@
 
 from __future__ import unicode_literals
 import re
+import os
 from jieba import posseg
 from labcnp import LabGenerator
 from labformat import tree 
@@ -72,10 +73,11 @@ def txt2label(txt, sfsfile=None, style='default'):
     assert style == 'default', 'Currently only default style is support in txt2label'
 
     # del all Chinese punctuation 
-    punctuation = "·！？｡＂＃＄％＆＇（）＊＋，－／：；＜＝＞＠［＼］＾＿｀｛｜｝～｟｠｢｣､、〃《》「」『』【】〔〕〖〗〘〙〚〛〜〝〞〟〰〾〿–—‘’‛“”„‟…‧﹏."
-    #punctuation  = punctuation.decode("utf-8")
-    txt = re.sub(r'[%s]'%punctuation, '', txt)
-    #txt = re.sub(r'[%s]'%punctuation, '', txt.decode('utf-8')).encode('utf-8')
+    # punctuation = "·！？｡＂＃＄％＆＇（）＊＋，－／：；＜＝＞＠［＼］＾＿｀｛｜｝～｟｠｢｣､、〃《》「」『』【】〔〕〖〗〘〙〚〛〜〝〞〟〰〾〿–—‘’‛“”„‟…‧﹏."
+    # txt = re.sub(r'[%s]'%punctuation, '', txt)
+
+    # delete all character which is not number && alphabet && chinese word
+    txt = re.sub(r'\W', '', txt)
 
     # If txt with prosody mark, use prosody mark,
     # else use jieba position segmetation
@@ -129,25 +131,52 @@ def txt2label(txt, sfsfile=None, style='default'):
     phone = tree(words, rhythms, syllables, poses, phs_type)
     return LabGenerator(phone, rhythms, times)
 
+def _txt_preprocess(txtfile, output_path):
+    # 去除所有标点符号(除非是韵律标注#1符号)，报错，如果txt中含有数字和字母(报错并跳过）
+    with open(txtfile) as fid:
+        txtlines = [x.strip() for x in fid.readlines()]
+    valid_txtlines = []
+    error_list = [] # line which contain number or alphabet
+    pattern = re.compile('(?!#(?=\d))[\W]')
+    for line in txtlines:
+        num, txt = line.split(' ', 1)
+        if bool(re.search('[A-Za-z]', txt)) or bool(re.search('(?<!#)\d', txt)):
+            error_list.append(num)
+        else:
+            txt = pattern.sub('', txt)
+            # 去除除了韵律标注'#'之外的所有非中文文本, 数字, 英文字符符号
+            valid_txtlines.append(num + ' ' + txt)
+    if error_list:
+        for item in error_list:
+            print('line %s contain number and alphabet!!' % item)
+        with open(os.path.join(output_path, 'error.log'), 'a+') as fid:
+            for item in error_list:
+                fid.write('line %s contain number and alphabet!!  \n' % item)
+
+    return valid_txtlines
+
+
 if __name__ == '__main__':
-    # 用法举例
-    input_txt = '向香港特别行政区同胞澳门和台湾同胞海外侨胞'
-    print(type(input_txt))
-    result = txt2label(input_txt)
+    import argparse
+    parser = argparse.ArgumentParser(description="convert mandarin_txt to label for merlin.")
+    parser.add_argument("txtfile",
+                        help="Full path to txtfile which each line contain num and txt (seperated by a white space) ")
+    parser.add_argument("output_path",
+                        help="Full path to output directory, will be created if it doesn't exist")
 
+    args = parser.parse_args()
 
-    '''
-    带韵律标记的文本也被支持
-    result = txt2label('向#1香港#2特别#1行政区#1同胞#4澳门#2和#1台湾#1同胞#4海外#1侨胞')
-
-    可加入发音时长文件
-    result = txt2label('向#1香港#2特别#1行政区#1同胞#4澳门#2和#1台湾#1同胞#4海外#1侨胞',
-            sfsfile='../example_file/example.sfs')
-
-    注意
-    文本中的所有中文标点符号会被删除
-    '''
-
-    for line in result:
-        print(line)
+    os.system('mkdir -p %s' % args.output_path)
+    txtlines = _txt_preprocess(args.txtfile, args.output_path)
+    
+    for line in txtlines:
+        print('processing: ',line)
+        numstr, txt = line.split(' ',1)
+        try:
+            labresult = txt2label(txt)
+        except Exception:
+            print('Error at %s, please check your txt %s' % (numstr, txt))
+        with open(os.path.join(args.output_path, numstr+'.lab'), 'w') as fid:
+                for lab in labresult:
+                    fid.write(lab+'\n')
 
