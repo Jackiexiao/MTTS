@@ -7,10 +7,11 @@ synthesis using merlin toolkit
 
 This is only a demo of mandarin frontend which is lack of some parts like "text normalasition" and "prosody prediction", and the phone set && Question Set this project use havn't fully tested yet.
 
+A draft [documentation](http://mtts.readthedocs.io/zh_CN/latest/#) written in Mandarin
+
 ## Data
-Using 15 hours of wav for a mandarin speech synthesis dataset which is not
-open-source, but you can use thchs30 dataset to run the demo (or record wav by
-yourself)
+There is no open-source mandarin speech synthesis dataset on the internet, this
+proj used thchs30 dataset to demostrate speech synthesis
 
 ## Generated Samples
 Listen to  https://jackiexiao.github.io/MTTS/
@@ -74,8 +75,6 @@ result = txt2label('向香港特别行政区同胞澳门和台湾同胞海外侨
 ```
 see [source
 code](https://github.com/Jackiexiao/MTTS/blob/master/src/mandarin_frontend.py) for more information, but pay attention to the alignment file(sfs file), the format is `endtime phone_type` not `start_time, phone_type`(which is different from speech ocean's data)
-
-[mandarin_frontend.py](https://github.com/Jackiexiao/MTTS/blob/master/src/mandarin_frontend.py)
 
 ### 3. Forced-alignment
 This project use [Montreal-Forced-Aligner](https://github.com/MontrealCorpusTools/Montreal-Forced-Aligner) to do forced alignment

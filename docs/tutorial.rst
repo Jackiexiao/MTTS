@@ -30,7 +30,7 @@ Merlin Toolkit 使用指南
 * Merlin: An Open Source Neural Network Speech Synthesis System   
     - [英文](http://ssw9.net/papers/ssw9_PS2-13_Wu.pdf)
     - [中文](http://blog.csdn.net/lujian1989/article/details/56008786)
-* `interspeech_tutorial_for_merlin(推荐！)<http://media.speech.zone/images/Interspeech2017_tutorial_Merlin_for_publication_watermarked_compressed_v2.pdf>`_
+* interspeech_tutorial_for_merlin(推荐！)
 * `Getting started with the Merlin Speech Synthesis Toolkit <http://jrmeyer.github.io/merlin/2017/02/14/Installing-Merlin.html>`_
 * `Merlin官方教程（正在建设中） <http://104.131.174.95/Merlin/dnn_tts/doc/build/html/>`_
 
