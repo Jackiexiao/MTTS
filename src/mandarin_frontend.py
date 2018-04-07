@@ -106,7 +106,7 @@ def txt2label(txt, sfsfile=None, style='default'):
                 line = line.strip().rstrip('\n')
                 assert len(line.split(' ')) == 2, 'check format of sfs file'
                 time, ph = line.split(' ')
-                times.append(int(time))
+                times.append(int(float(time)))
                 phs_type.extend(ph)
     else:
         length = 0

@@ -12,6 +12,7 @@ Mandarin/Chinese Text to Speech based on statistical parametric speech synthesis
     :maxdepth: 2
 
     recent_search
+    tutorial
     merlin
     corpus
     text_analyse

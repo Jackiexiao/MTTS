@@ -161,11 +161,7 @@ Festival 使用了英文词典，语言规范等文件，用最新的EHMM alignm
 
 label文件的格式请参见：`lab_format.pdf <http://www.cs.columbia.edu/~ecooper/tts/lab_format.pdf>`_
 
-（4）label to training-data（HMM模型聚类）TODO
-
-由于基于上下文信息的HMM模型过于庞大，有必要对HMM模型进行聚类，即使用问题集Question file.（可以参考 `决策树聚类 <http://blog.csdn.net/quhediegooo/article/details/61202901>`_ ）（这个Question sets目测可以看HTS的文档来获得进一步的解释）
-
-Question file 的解释：  
+（4）label to training-data(Question file)
 
 The questions in the question file will be used to convert the full-context labels into binary and/or numerical features for vectorization. It is suggested to do a manual selection of the questions, as the number of questions will affect the dimensionality of the vectorized input features.  
 
@@ -217,7 +213,7 @@ World
 Merlin源码详解
 ===============================================
 
-关于merlin的详细解读，可参考candlewill的[github
+关于merlin的详细解读（强烈推荐），可参考candlewill的[github
 gist](https://gist.github.com/candlewill/5584911728260904414b4a6679a93d53)
 
 网络配置文件详解
@@ -278,10 +274,10 @@ run_merlin.py
     MAKEDUR  : True
     MAKECMP  : True
     NORMCMP  : True
-
+    
     TRAINDNN : True
     DNNGEN   : True
-
+    
     CALMCD   : True
 
 训练声学模型
@@ -291,10 +287,10 @@ run_merlin.py
     NORMLAB  : True
     MAKECMP  : True
     NORMCMP  : True
-
+    
     TRAINDNN : True
     DNNGEN   : True
-
+    
     GENWAV   : True
     CALMCD   : True
 
@@ -311,5 +307,5 @@ run_merlin.py
 
     NORMLAB  : True
     DNNGEN   : True
-
+    
     GENWAV   : True
