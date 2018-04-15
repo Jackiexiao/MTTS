@@ -163,6 +163,8 @@ if __name__ == '__main__':
                         help="Full path to txtfile which each line contain num and txt (seperated by a white space) ")
     parser.add_argument("output_path",
                         help="Full path to output directory, will be created if it doesn't exist")
+    parser.add_argument("-s", "--sfs_dir_path", type=str, default=None,
+                        help="Full path to sfs directory, won't generate time stamp if it is None")
 
     args = parser.parse_args()
 
@@ -173,10 +175,15 @@ if __name__ == '__main__':
         print('processing: ',line)
         numstr, txt = line.split(' ',1)
         try:
-            labresult = txt2label(txt)
+            if args.sfs_dir_path:
+                sfs_file = os.path.join(args.sfs_dir_path, numstr+'.sfs')
+                labresult = txt2label(txt, sfsfile=sfs_file)
+            else:
+                labresult = txt2label(txt)
         except Exception:
-            print('Error at %s, please check your txt %s' % (numstr, txt))
-        with open(os.path.join(args.output_path, numstr+'.lab'), 'w') as fid:
-                for lab in labresult:
-                    fid.write(lab+'\n')
+            print('Error at %s, please check your txt or sfs file %s' % (numstr, txt))
+        else:
+            with open(os.path.join(args.output_path, numstr+'.lab'), 'w') as fid:
+                    for lab in labresult:
+                        fid.write(lab+'\n')
 

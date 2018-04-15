@@ -33,6 +33,30 @@ def _add_lab(txtlines, wav_dir_path):
         with open(lab_file, 'w') as oid:
             oid.write(' '.join(new_pinyin_list))
 
+def _add_pinyin(txtlines, output_path):
+    ''' txt2pinyin in one file '''
+    logger = logging.getLogger('mtts')
+    all_pinyin = []
+    for line in txtlines:
+        numstr, txt = line.split(' ')
+        txt = re.sub('#\d', '', txt)
+        pinyin_list = pinyin(txt, style = Style.TONE3)
+        new_pinyin_list = []
+        for item in pinyin_list:
+            if not item:
+                logger.warning('{file_num} do not generate right pinyin'.format(numstr))
+            if not item[0][-1].isdigit():
+                phone = item[0]+'5'
+            else:
+                phone = item[0]
+            new_pinyin_list.append(phone)
+        all_pinyin.append(numstr + ' ' + ' '.join(new_pinyin_list))
+    all_pinyin_file = os.path.join(output_path, 'all_pinyin.lab')
+    with open(all_pinyin_file, 'w') as oid:
+        for item in all_pinyin:
+            oid.write(item + '\n')
+
+
 def _txt_preprocess(txtfile, output_path):
     # 去除所有标点符号(除非是韵律标注#1符号)，报错，如果txt中含有数字和字母(报错并跳过）
     logger = logging.getLogger('mtts')
@@ -178,6 +202,7 @@ def generate_label(txtfile, wav_dir_path, output_path, acoustic_model_path):
     txtlines = _txt_preprocess(txtfile, output_path)
     _pre_pinyin_setting()
     _add_lab(txtlines, wav_dir_path)
+    #_add_pinyin(txtlines, output_path)
     _mfa_align(txtlines, wav_dir_path, output_path, acoustic_model_path)
     _textgrid2sfs(txtlines, output_path)
     _sfs2label(txtlines, output_path)
