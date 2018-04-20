@@ -1,5 +1,5 @@
 # 语音合成测试语料库
-目标是设计1000句左右的测试语料，包含多方面考察点，以便用于合成语音的评价和分析。目前设计了22句
+目标是设计1000句左右的测试语料，包含多方面考察点，以便用于合成语音的评价和分析。
 
 ## 基本要求
 
@@ -10,11 +10,16 @@
 * 覆盖所有语气类型，陈述句，疑问句，感叹句，祈使句等等
 * 覆盖常见的不同说话场景：新闻，日常对话，演讲等
 * 覆盖分词测试
-* 包括英文发音，度量单位，数字串
+* 包括汉语中参见的英文缩写发音，度量单位，数字串
+* 包含英语和汉语两种语言的测试语料
+
+
+
+## 汉语部分
 
 ```
-101 向#1香港#2特别#1行政区#1同胞，#4澳门#2和#1台湾#1同胞#4海外#1侨胞
-102 向#1香港#2特别#1行政区#4同胞，#4澳门#1和#1台湾#4同胞#4海外#3侨胞
+101 向#1香港#2特别#1行政区#1同胞，#4澳门#2和#1台湾#1同胞#2海外#1侨胞
+102 向#1香港#2特别#1行政区#4同胞，#4澳门#1和#1台湾#1同胞#4，海外#3侨胞
 103 向香港特别行政区同胞，澳门和台湾同胞，海外侨胞，致以诚挚的问候和良好的祝愿
 104 这#1两批#1货物#2都打折出售#4，严重#2折本#3，他#1再也#2经不起#1这样折腾。
 105 他#1每次#2出差#3，差不多#1都要#1出点#1差错。
@@ -35,9 +40,11 @@
 120 美国会通过对台售武法案。
 121 体重128斤的小明手机是1289025621，他现在在乘坐G128列车。
 122 KFC，ATM，CNN。
+123 八百标兵奔北坡，北坡炮兵并排跑，炮兵怕把标兵碰，标兵怕碰炮兵炮。
+124 吃葡萄不吐葡萄皮儿，不吃葡萄倒吐葡萄皮儿。
 ```
 
-## 说明
+### 说明
 ```
 101 韵律
 102 不同韵律
@@ -61,4 +68,46 @@
 120 中文分词歧义：既可以切分成“美国/会/通过对台售武法案”，又可以切分成“美/国会/通过对台售武法案”
 121 数字规范化：小明体重是128斤”中的"128"应该规范为"一百二十八"，而"G128次列车”中的"128"应该规范为“一二八”，而电话中却读作幺二八
 122 英文缩写：KFC，ATM，CNN。
+123 绕口令
+124 绕口令
 ```
+## English 
+reference: [google tacotron2 example]
+(https://github.com/google/tacotron/tree/master/publications/tacotron2)
+```
+201 Generative adversarial network or variational auto-encoder.
+202 Basilar membrane and otolaryngology are not auto-correlations.
+203 He has read the whole thing.
+204 He reads books
+205 Don't desert me here in the desert!
+206 He thought it was time to present the present.
+207 Thisss isrealy awhsome
+208 This is your personal assistant, Google Home.
+209 This is your personal assistant Google Home.
+210 The buses aren't the problem, they actually provide a solution.
+211 The buses aren't the PROBLEM, they actually provide a SOLUTION.
+212 The quick brown fox jumps over the lazy dog.
+213 Does the quick brown fox jump over the lazy dog?
+214 She sells sea-shells on the sea-shore. The shells she sells are sea-shells I'm sure.
+215 Peter Piper picked a peck of pickled peppers. How many pickled peppers did Peter Piper pick?
+```
+
+### explanation
+```
+201 out-of-domain and complex words
+202 out-of-domain and complex words
+203 polyphone
+204 polyphone
+205 polyphone
+206 polyphone
+207 spelling errors
+208 punctuation
+209 punctuation
+210 stress and intonation
+211 stress and intonation
+212 declarative sentences
+213 interrogative sentences
+214 tongue twisters
+215 tongue twisters
+```
+
