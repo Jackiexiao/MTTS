@@ -77,7 +77,7 @@ def txt2label(txt, sfsfile=None, style='default'):
     # txt = re.sub(r'[%s]'%punctuation, '', txt)
 
     # delete all character which is not number && alphabet && chinese word
-    txt = re.sub(r'\W', '', txt)
+    txt = re.sub(r'(?!#)\W', '', txt)
 
     # If txt with prosody mark, use prosody mark,
     # else use jieba position segmetation
