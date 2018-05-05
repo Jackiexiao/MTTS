@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 # -*- encoding:utf-8 -*-
 
 from __future__ import unicode_literals
@@ -20,20 +21,26 @@ def _adjust(prosody_txt):
         words.append(word)
         poses.append(pos[0])
     index = 0
+    insert_time = 0
     length = len(prosody_words[index])
     i = 0
     while i < len(words):
         done = False
         while not done:
             if(len(words[i]) > length):
-                del rhythms[0]
+                print(words[i], prosody_words[index])
                 length += len(prosody_words[index+1])
+                rhythms[index] = ''
                 index += 1
             elif(len(words[i]) < length):
-                rhythms.insert(1, '#0')
+                print(' less than ', words[i], prosody_words[index])
+                rhythms.insert(index+insert_time, '#0')
+                insert_time += 1
                 length -= len(words[i])
                 i += 1
             else:
+                print('equal :', words[i])
+                print(rhythms)
                 done = True
                 index += 1
         else:
@@ -41,6 +48,8 @@ def _adjust(prosody_txt):
                 length = len(prosody_words[index])
             i += 1
     rhythms.append('#4')
+    rhythms = [x for x in rhythms if x != '']
+    print(rhythms)
     return (words, poses, rhythms)
 
 
@@ -84,6 +93,7 @@ def txt2label(txt, sfsfile=None, style='default'):
     if '#' in txt:
         words, poses, rhythms = _adjust(txt)
     else:
+        txt = re.sub('[,.，。]', '#4', txt)
         words = []
         poses = []
         for word, pos in posseg.cut(txt):
@@ -96,7 +106,7 @@ def txt2label(txt, sfsfile=None, style='default'):
 
     phone_num = 0
     for syllable in syllables:
-        phone_num += len(syllable) 
+        phone_num += len(syllable)  # syllable is like ('b', 'a3')
 
     if sfsfile:
         phs_type = []
@@ -109,13 +119,19 @@ def txt2label(txt, sfsfile=None, style='default'):
                 times.append(int(float(time)))
                 phs_type.extend(ph)
     else:
-        length = 0
-        for syllable in syllables:
-            length += len(syllable) 
+        phs_type = []
+        for i, rhythm in enumerate(rhythms):
+            single_word_pinyin = txt2pinyin(words[i])
+            single_word_phone_num = sum([len(syllable) for syllable in single_word_pinyin])
+            phs_type.extend(['a'] * single_word_phone_num)
+            if i != (len(rhythms)-1) and rhythm == '#4':
+                phs_type.append('s')
+        '''
         phs_type = ['a'] * phone_num
+        '''
         phs_type.insert(0, 's')
         phs_type.append('s')
-        times = [0] * (phone_num + 3)
+        times = [0] * (len(phs_type)+1)
 
     '''
     for item in words:
@@ -126,6 +142,7 @@ def txt2label(txt, sfsfile=None, style='default'):
     print (syllables)
     print (poses)
     print (phs_type)
+    print (times)
     '''
 
     phone = tree(words, rhythms, syllables, poses, phs_type)
@@ -137,12 +154,13 @@ def _txt_preprocess(txtfile, output_path):
         txtlines = [x.strip() for x in fid.readlines()]
     valid_txtlines = []
     error_list = [] # line which contain number or alphabet
-    pattern = re.compile('(?!#(?=\d))[\W]')
+    pattern = re.compile('(?!#(?=\d))(?![，。,.])[\W]')
     for line in txtlines:
         num, txt = line.split(' ', 1)
         if bool(re.search('[A-Za-z]', txt)) or bool(re.search('(?<!#)\d', txt)):
             error_list.append(num)
         else:
+            txt = re.sub('[,.，。]', '#4', txt)
             txt = pattern.sub('', txt)
             # 去除除了韵律标注'#'之外的所有非中文文本, 数字, 英文字符符号
             valid_txtlines.append(num + ' ' + txt)
@@ -174,6 +192,13 @@ if __name__ == '__main__':
     for line in txtlines:
         print('processing: ',line)
         numstr, txt = line.split(' ',1)
+        '''
+        if args.sfs_dir_path:
+            sfs_file = os.path.join(args.sfs_dir_path, numstr+'.sfs')
+            labresult = txt2label(txt, sfsfile=sfs_file)
+        else:
+            labresult = txt2label(txt)
+        '''
         try:
             if args.sfs_dir_path:
                 sfs_file = os.path.join(args.sfs_dir_path, numstr+'.sfs')

@@ -70,6 +70,7 @@ def _txt_preprocess(txtfile, output_path):
         if bool(re.search('[A-Za-z]', txt)) or bool(re.search('(?<!#)\d', txt)):
             error_list.append(num)
         else:
+            txt = re.sub('[,.，。]', '#4', txt)
             txt = pattern.sub('', txt)
             # 去除除了韵律标注'#'之外的所有非中文文本, 数字, 英文字符符号
             if txt:
