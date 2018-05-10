@@ -4,16 +4,15 @@
 1. 自然语言处理工具包
 ---------------------------------------------
 
-`知乎 常用的开源自然语言处理/开发包<https://www.zhihu.com/question/19929473/answer/264555333>`_
+`知乎 常用的开源自然语言处理/开发包 <https://www.zhihu.com/question/19929473/answer/264555333>`_
 
 `知乎 比较好的中文分词方案 <https://www.zhihu.com/question/19578687/answer/190569700>`_
 
 python-pinyin
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-[python-pinyin](https://github.com/mozillazg/python-pinyin)
+`python-pinyin <https://github.com/mozillazg/python-pinyin>`_
 提供了汉字转换成拼音的工具，它的安装和使用都很方便
-
 ::
 
     pip3 install pypinyin
@@ -42,10 +41,6 @@ python-pinyin
 ---------------------------------------------
 
 STRAIGHT是由日本和歌山大学的Kawahara博士提出的语音信号分析工具[56]。使用STRAIGHT可以进行频谱分析，基频提取和非周期成分分析。其频谱比较平滑，与基于傅里叶变换的语音短时频谱相比，其中包含基频及其谐波的成分基本去除，因此允许对基频和频谱参数进行更大范围的修改而不损伤音质，更适用于作为个性化语音合成系统的声学分析模块。在本论文中，除特别说明，均使用STRAIGHT进行频谱和基频的提取。STRAIGHT频谱将进一步用SPTK的工具提取MGCC频谱系数，其基频直接用于声学模型训练。在合成时，使用改造的SPTK中的MLSA滤波器生成语音波形。[5]
-
-具体介绍参见文献[24],并加以补充
-
-World
 
 
 4. HTK

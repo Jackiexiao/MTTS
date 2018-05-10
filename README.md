@@ -4,6 +4,7 @@
 
 Mandarin/Chinese Text to Speech based on statistical parametric speech 
 synthesis using merlin toolkit
+Merlin中文语音合成前端（Demo）暂时没有计划实现完整的前端
 
 This is only a demo of mandarin frontend which is lack of some parts like "text normalization" and "prosody prediction", and the phone set && Question Set this project use havn't fully tested yet.
 
