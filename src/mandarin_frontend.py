@@ -7,7 +7,7 @@ import re
 import os
 from jieba import posseg
 from labcnp import LabGenerator
-from labformat import tree 
+from labformat import tree
 from txt2pinyin import txt2pinyin
 
 def _adjust(prosody_txt):
@@ -28,34 +28,35 @@ def _adjust(prosody_txt):
         done = False
         while not done:
             if(len(words[i]) > length):
-                print(words[i], prosody_words[index])
+                #print(words[i], prosody_words[index])
                 length += len(prosody_words[index+1])
                 rhythms[index] = ''
                 index += 1
             elif(len(words[i]) < length):
-                print(' less than ', words[i], prosody_words[index])
+                # print(' less than ', words[i], prosody_words[index])
                 rhythms.insert(index+insert_time, '#0')
                 insert_time += 1
                 length -= len(words[i])
                 i += 1
             else:
-                print('equal :', words[i])
-                print(rhythms)
+                # print('equal :', words[i])
+                # print(rhythms)
                 done = True
                 index += 1
         else:
             if(index < len(prosody_words)):
                 length = len(prosody_words[index])
             i += 1
-    rhythms.append('#4')
+    if rhythms[-1] != '#4':
+        rhythms.append('#4')
     rhythms = [x for x in rhythms if x != '']
-    print(rhythms)
+    # print(rhythms)
     return (words, poses, rhythms)
 
 
 def txt2label(txt, sfsfile=None, style='default'):
     '''Return a generator of HTS format label of txt.
-    
+
     Args:
         txt: like raw txt "向香港特别行政区同胞澳门台湾同胞"
              or txt with prosody make like "向#1香港#2特别行政区#1同胞#3澳门台湾#1同胞",
@@ -64,24 +65,24 @@ def txt2label(txt, sfsfile=None, style='default'):
             example(measure time by 10e-7 second, 12345678 means 1.2345678
             second)
             --------
-            239100 s 
-            313000 a 
+            239100 s
+            313000 a
             323000 d
-            400000 b 
-            480000 s 
+            400000 b
+            480000 s
             ---------
             a stands for consonant
             b stands for vowel
             d stands for silence that is shorter than 100ms
             s stands for silence that is longer than 100ms
         style: label style, currently only support the default HTS format
-        
+
     Return:
         A generator of phone label for the txt, convenient to save as a label file
     '''
     assert style == 'default', 'Currently only default style is support in txt2label'
 
-    # del all Chinese punctuation 
+    # del all Chinese punctuation
     # punctuation = "·！？｡＂＃＄％＆＇（）＊＋，－／：；＜＝＞＠［＼］＾＿｀｛｜｝～｟｠｢｣､、〃《》「」『』【】〔〕〖〗〘〙〚〛〜〝〞〟〰〾〿–—‘’‛“”„‟…‧﹏."
     # txt = re.sub(r'[%s]'%punctuation, '', txt)
 
@@ -188,7 +189,7 @@ if __name__ == '__main__':
 
     os.system('mkdir -p %s' % args.output_path)
     txtlines = _txt_preprocess(args.txtfile, args.output_path)
-    
+
     for line in txtlines:
         print('processing: ',line)
         numstr, txt = line.split(' ',1)

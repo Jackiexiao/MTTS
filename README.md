@@ -1,10 +1,10 @@
 [![Build Status](https://travis-ci.org/Jackiexiao/MTTS.svg?branch=dev)](https://travis-ci.org/Jackiexiao/MTTS)
 <!--[![Coverage Status](https://coveralls.io/repos/github/Jackiexiao/MTTS/badge.svg?branch=master)](https://coveralls.io/github/Jackiexiao/MTTS?branch=master)-->
-# MTTS Mandarin/Chinese Text to Speech FrontEnd(Demo)
+# A Demo of MTTS Mandarin/Chinese Text to Speech FrontEnd
 
 Mandarin/Chinese Text to Speech based on statistical parametric speech 
 synthesis using merlin toolkit
-Merlin中文语音合成前端（Demo）暂时没有计划实现完整的前端
+Merlin中文语音合成前端（Demo）没有计划实现完整的前端
 
 This is only a demo of mandarin frontend which is lack of some parts like "text normalization" and "prosody prediction", and the phone set && Question Set this project use havn't fully tested yet.
 

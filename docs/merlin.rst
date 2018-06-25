@@ -309,3 +309,13 @@ run_merlin.py
     DNNGEN   : True
     
     GENWAV   : True
+
+Merlin流程图
+----------------------------------------------------------
+
+整体流程图和时长模型&声学模型
+
+.. figure:: /img/merlin.png
+.. figure:: /img/merlin-duration.png
+.. figure:: /img/merlin-acoustic.png
+

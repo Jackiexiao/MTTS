@@ -12,6 +12,7 @@ consonant = ['b', 'p', 'm', 'f', 'd', 't', 'n', 'l', 'g', 'k',
 def _pre_pinyin_setting():
     ''' fix pinyin error'''
     load_phrases_dict({'嗯':[['ēn']]})
+    load_phrases_dict({'风云变幻':[['fēng'], ['yún'], ['bià'], ['huàn']]})
     load_phrases_dict({'不破不立':[['bù'], ['pò'], ['bù'], ['lì']]})
 
 def _add_lab(txtlines, wav_dir_path):
@@ -48,7 +49,8 @@ def _add_pinyin(txtlines, output_path):
             if not item[0][-1].isdigit():
                 phone = item[0]+'5'
             else:
-                phone = item[0]
+                #phone = item[0]
+                phone = item[0].replace('v', 'u')
             new_pinyin_list.append(phone)
         all_pinyin.append(numstr + ' ' + ' '.join(new_pinyin_list))
     all_pinyin_file = os.path.join(output_path, 'all_pinyin.lab')
@@ -96,7 +98,7 @@ def _standard_sfs(csv_list):
                 return 's'
         else: #phone is vowel
             return 'b'
-    standard_sfs_list = list((str(int(float(csv_list[1])*10e6)), 
+    standard_sfs_list = list((str(int(float(csv_list[1])*10e6)),
                    change2absd(csv_list[2], csv_list)))
     return standard_sfs_list
 
