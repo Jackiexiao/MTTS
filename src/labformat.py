@@ -50,7 +50,11 @@ def tree_per_word(word, rhythm, tree_init, syllables, poses):
 
     else:
         newLab = LabNode(sons=get_list(pre_rhythm), txt = word, index = len(rhythm_list) + 1, rhythm=rhythm)
-        tree_init['assist'][rhythm_map[pre_rhythm]] = get_list(pre_rhythm)[-1]
+        value = get_list(pre_rhythm)
+        if len(value)>0:
+            tree_init['assist'][rhythm_map[pre_rhythm]] = get_list(pre_rhythm)[-1]
+        else:
+            tree_init['assist'][rhythm_map[pre_rhythm]] = []
         tree_init[rhythm_map[pre_rhythm]] = []
         newLab.adjust()
     
