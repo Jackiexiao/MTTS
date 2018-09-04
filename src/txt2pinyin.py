@@ -12,6 +12,7 @@ def _pre_pinyin_setting():
     ''' fix pinyin error'''
     load_phrases_dict({'嗯':[['ēn']]})
 
+_pre_pinyin_setting()
 
 def pinyinformat(syllabel):
     '''format pinyin to mtts's format''' 
@@ -61,7 +62,6 @@ def seprate_syllabel(syllabel):
 
 
 def txt2pinyin(txt):
-    _pre_pinyin_setting()
     phone_list = []
     '''
     if isinstance(txt, str):
