@@ -40,7 +40,7 @@ Lab = ['t', 'p', 'a', 'b', 'c', 'd', 'e', 'f']
 
 formation=[
     ' ', ' ', 
-    '^', '-', '+', '=', '@/A:', 
+    '^', '-', '+', '=', '@', '@/A:', 
     '-', '^', '@/B:', 
     '+', '@', '^', '^', '+', '#', '-', '-/C:', 
     '_', '^', '#', '+', '+', '&/D:', 
@@ -89,8 +89,9 @@ class LabGenerator(object):
         p3  |  当前基元
         p4  |  后一基元
         p5  |  后后基元
+        p6  |  当前音节的元音
         """
-        self.adict['p'] = ['xx'] * 5
+        self.adict['p'] = ['xx'] * 6
         self.adict['p'][2] = self.phone.txt
         if self.phone.lbrother:
             self.adict['p'][1] = self.phone.lbrother.txt
@@ -101,6 +102,9 @@ class LabGenerator(object):
             self.adict['p'][3] = self.phone.rbrother.txt
             if self.phone.rbrother.rbrother:
                 self.adict['p'][4] = self.phone.rbrother.rbrother.txt
+        
+        if self.phone.father:
+            self.adict['p'][5] = self.phone.father.sons[-1].txt.rstrip('12345')
 
     def a(self):
         """
