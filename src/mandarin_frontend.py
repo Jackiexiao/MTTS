@@ -10,6 +10,7 @@ from labcnp import LabGenerator
 from labformat import tree
 from txt2pinyin import txt2pinyin
 
+
 def _adjust(prosody_txt):
     '''Make sure that segment word is smaller than prosody word'''
     prosody_words = re.split('#\d', prosody_txt)
@@ -27,14 +28,14 @@ def _adjust(prosody_txt):
     while i < len(words):
         done = False
         while not done:
-            if(len(words[i]) > length):
+            if (len(words[i]) > length):
                 #print(words[i], prosody_words[index])
-                length += len(prosody_words[index+1])
+                length += len(prosody_words[index + 1])
                 rhythms[index] = ''
                 index += 1
-            elif(len(words[i]) < length):
+            elif (len(words[i]) < length):
                 # print(' less than ', words[i], prosody_words[index])
-                rhythms.insert(index+insert_time, '#0')
+                rhythms.insert(index + insert_time, '#0')
                 insert_time += 1
                 length -= len(words[i])
                 i += 1
@@ -44,7 +45,7 @@ def _adjust(prosody_txt):
                 done = True
                 index += 1
         else:
-            if(index < len(prosody_words)):
+            if (index < len(prosody_words)):
                 length = len(prosody_words[index])
             i += 1
     if rhythms[-1] != '#4':
@@ -82,10 +83,6 @@ def txt2label(txt, sfsfile=None, style='default'):
     '''
     assert style == 'default', 'Currently only default style is support in txt2label'
 
-    # del all Chinese punctuation
-    # punctuation = "·！？｡＂＃＄％＆＇（）＊＋，－／：；＜＝＞＠［＼］＾＿｀｛｜｝～｟｠｢｣､、〃《》「」『』【】〔〕〖〗〘〙〚〛〜〝〞〟〰〾〿–—‘’‛“”„‟…‧﹏."
-    # txt = re.sub(r'[%s]'%punctuation, '', txt)
-
     # delete all character which is not number && alphabet && chinese word
     txt = re.sub(r'(?!#)\W', '', txt)
 
@@ -100,7 +97,7 @@ def txt2label(txt, sfsfile=None, style='default'):
         for word, pos in posseg.cut(txt):
             words.append(word)
             poses.append(pos[0])
-        rhythms = ['#0']*(len(words)-1)
+        rhythms = ['#0'] * (len(words) - 1)
         rhythms.append('#4')
 
     syllables = txt2pinyin(''.join(words))
@@ -123,42 +120,44 @@ def txt2label(txt, sfsfile=None, style='default'):
         phs_type = []
         for i, rhythm in enumerate(rhythms):
             single_word_pinyin = txt2pinyin(words[i])
-            single_word_phone_num = sum([len(syllable) for syllable in single_word_pinyin])
+            single_word_phone_num = sum(
+                [len(syllable) for syllable in single_word_pinyin])
             phs_type.extend(['a'] * single_word_phone_num)
-            if i != (len(rhythms)-1) and rhythm == '#4':
+            if i != (len(rhythms) - 1) and rhythm == '#4':
                 phs_type.append('s')
         '''
         phs_type = ['a'] * phone_num
         '''
         phs_type.insert(0, 's')
         phs_type.append('s')
-        times = [0] * (len(phs_type)+1)
-
+        times = [0] * (len(phs_type) + 1)
     '''
     for item in words:
         print(item)
 
-    print (words)
-    print (rhythms)
-    print (syllables)
-    print (poses)
-    print (phs_type)
-    print (times)
+    print ('words: ', words)
+    print ('rhythms: ',rhythms)
+    print ('syllables: ', syllables)
+    print ('poses: ', poses)
+    print ('phs_type: ', phs_type)
+    print ('times: ', times)
     '''
 
     phone = tree(words, rhythms, syllables, poses, phs_type)
     return LabGenerator(phone, rhythms, times)
+
 
 def _txt_preprocess(txtfile, output_path):
     # 去除所有标点符号(除非是韵律标注#1符号)，报错，如果txt中含有数字和字母(报错并跳过）
     with open(txtfile) as fid:
         txtlines = [x.strip() for x in fid.readlines()]
     valid_txtlines = []
-    error_list = [] # line which contain number or alphabet
+    error_list = []  # line which contain number or alphabet
     pattern = re.compile('(?!#(?=\d))(?![，。,.])[\W]')
     for line in txtlines:
         num, txt = line.split(' ', 1)
-        if bool(re.search('[A-Za-z]', txt)) or bool(re.search('(?<!#)\d', txt)):
+        if bool(re.search('[A-Za-z]', txt)) or bool(
+                re.search('(?<!#)\d', txt)):
             error_list.append(num)
         else:
             txt = re.sub('[,.，。]', '#4', txt)
@@ -176,6 +175,9 @@ def _txt_preprocess(txtfile, output_path):
 
 
 if __name__ == '__main__':
+    txt = '继续把建设有中国特色社会主义事业推向前进'
+    print(list(txt2label(txt)))
+    """
     import argparse
     parser = argparse.ArgumentParser(description="convert mandarin_txt to label for merlin.")
     parser.add_argument("txtfile",
@@ -212,4 +214,4 @@ if __name__ == '__main__':
             with open(os.path.join(args.output_path, numstr+'.lab'), 'w') as fid:
                     for lab in labresult:
                         fid.write(lab+'\n')
-
+    """

@@ -2,6 +2,10 @@
 # or download montreal-forced-aligner_linux.tar.gz and thchs30.zip and move
 # them to accordingly dir by yourself
 
+pip install jieba pypinyin
+
+sudo apt-get install libatlas3-base
+
 tools_dir=$(dirname $0)
 cd $tools_dir
 
