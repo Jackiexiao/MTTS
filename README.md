@@ -4,11 +4,14 @@
 
 Mandarin/Chinese Text to Speech based on statistical parametric speech 
 synthesis using merlin toolkit
-Merlin中文语音合成前端（Demo）没有计划实现完整的前端
+
+这只是一个语音合成前端的Demo，没有提供文本正则化，韵律预测功能，文字转拼音使用pypinyin，分词使用结巴分词，这两者的准确度也达不到商用水平。
+
+欢迎加入语音合成技术交流QQ群：882726654
 
 This is only a demo of mandarin frontend which is lack of some parts like "text normalization" and "prosody prediction", and the phone set && Question Set this project use havn't fully tested yet.
 
-A draft [documentation](http://mtts.readthedocs.io/zh_CN/latest/#) written in Mandarin
+一个粗略的文档：A draft [documentation](http://mtts.readthedocs.io/zh_CN/latest/#) written in Mandarin
 
 ## Data
 There is no open-source mandarin speech synthesis dataset on the internet, this
