@@ -17,6 +17,12 @@ This is only a demo of mandarin frontend which is lack of some parts like "text 
 There is no open-source mandarin speech synthesis dataset on the internet, this
 proj used thchs30 dataset to demostrate speech synthesis
 
+**UPDATE**
+
+open-source mandarin speech synthesis data from data-banker company, 开源的中文语音合成数据，感谢标贝公司
+
+【数据下载】https://weixinxcxdb.oss-cn-beijing.aliyuncs.com/gwYinPinKu/BZNSYP.rar
+
 ## Generated Samples
 Listen to  https://jackiexiao.github.io/MTTS/
 
