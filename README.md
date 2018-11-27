@@ -9,6 +9,8 @@ synthesis using merlin toolkit
 
 欢迎加入语音合成技术交流QQ群：882726654
 
+其他语音合成项目[传送门](https://github.com/topics/text-to-speech)，端到端是不错的方向，自然度要优于merlin。
+
 This is only a demo of mandarin frontend which is lack of some parts like "text normalization" and "prosody prediction", and the phone set && Question Set this project use havn't fully tested yet.
 
 一个粗略的文档：A draft [documentation](http://mtts.readthedocs.io/zh_CN/latest/#) written in Mandarin
