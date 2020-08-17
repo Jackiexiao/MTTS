@@ -1,5 +1,9 @@
 # 本项目已停止维护
 
+欢迎加入
+* [语音合成-中文兴趣社区-开黑啦-试运行](https://kaihei.co/3qKicJ)！
+* [TTS-English-discord-trial-run](https://discord.gg/wyXp5m)！
+
 [![Build Status](https://travis-ci.org/Jackiexiao/MTTS.svg?branch=dev)](https://travis-ci.org/Jackiexiao/MTTS)
 <!--[![Coverage Status](https://coveralls.io/repos/github/Jackiexiao/MTTS/badge.svg?branch=master)](https://coveralls.io/github/Jackiexiao/MTTS?branch=master)-->
 # A Demo of MTTS Mandarin/Chinese Text to Speech FrontEnd
@@ -8,8 +12,6 @@ Mandarin/Chinese Text to Speech based on statistical parametric speech
 synthesis using merlin toolkit
 
 这只是一个语音合成前端的Demo，没有提供文本正则化，韵律预测功能，文字转拼音使用pypinyin，分词使用结巴分词，这两者的准确度也达不到商用水平。
-
-欢迎加入语音合成技术交流QQ群：882726654
 
 其他语音合成项目[传送门](https://github.com/topics/text-to-speech)，端到端是不错的方向，自然度要优于merlin。
 
