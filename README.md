@@ -2,7 +2,7 @@
 
 欢迎加入
 * [语音合成-中文兴趣社区-开黑啦-试运行](https://kaihei.co/3qKicJ)！
-* [TTS-English-discord-trial-run](https://discord.gg/wyXp5m)！
+* 语音合成交流QQ群：882726654
 
 [![Build Status](https://travis-ci.org/Jackiexiao/MTTS.svg?branch=dev)](https://travis-ci.org/Jackiexiao/MTTS)
 <!--[![Coverage Status](https://coveralls.io/repos/github/Jackiexiao/MTTS/badge.svg?branch=master)](https://coveralls.io/github/Jackiexiao/MTTS?branch=master)-->
