@@ -1,7 +1,6 @@
 # 本项目已停止维护
 
 欢迎加入
-* [语音合成-中文兴趣社区-开黑啦-试运行](https://kaihei.co/3qKicJ)！
 * 语音合成交流QQ群：882726654
 
 [![Build Status](https://travis-ci.org/Jackiexiao/MTTS.svg?branch=dev)](https://travis-ci.org/Jackiexiao/MTTS)
