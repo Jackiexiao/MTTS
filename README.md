@@ -1,5 +1,8 @@
-# 本项目已停止维护
-推荐：https://github.com/thuhcsi/Crystal
+# 本项目已停止维护，已相当老旧
+推荐：
+
+- https://github.com/PaddlePaddle/PaddleSpeech/tree/develop/paddlespeech/t2s/frontend
+- https://github.com/thuhcsi/Crystal
 
 欢迎加入
 * 语音合成交流QQ群：882726654
